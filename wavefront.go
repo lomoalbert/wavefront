@@ -3,7 +3,7 @@ package wavefront
 import (
 	"bufio"
 	"fmt"
-	"os"
+	"golang.org/x/mobile/asset"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -17,23 +17,23 @@ type Object struct {
 
 // Group contains vertexes, normals and the material
 type Group struct {
-	Vertexes []float32
-	Normals  []float32
-	Material *Material
+	Vertexes []float32 //顶点
+	Normals  []float32 //法线
+	Material *Material //材质
 }
 
 // Material represents a material
 type Material struct {
 	Name      string
-	Ambient   []float32
-	Diffuse   []float32
-	Specular  []float32
+	Ambient   []float32 //漫反射
+	Diffuse   []float32 //环境
+	Specular  []float32 //光泽
 	Shininess float32
 }
 
 // Read opens a wavefront file and parses it into a map of objects
 func Read(filename string) (map[string]*Object, error) {
-	file, err := os.Open(filename)
+	file, err := asset.Open(filename)
 	if err != nil {
 		return nil, err
 	}
@@ -160,7 +160,7 @@ func Read(filename string) (map[string]*Object, error) {
 }
 
 func readMaterials(filename string) (map[string]*Material, error) {
-	file, err := os.Open(filename)
+	file, err := asset.Open(filename)
 	if err != nil {
 		return nil, fmt.Errorf("cannot read referenced material library: %v", err)
 	}
