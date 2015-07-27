@@ -6,13 +6,18 @@ import (
 )
 
 func TestRead(t *testing.T) {
-	model, err := Read("gopher.obj")
+	models, err := Read("gopher.obj")
 	if err != nil {
 		t.Fatalf("%v", err)
 	}
 
-	if len(model) != 12 {
+	if len(models) != 12 {
 		t.Fatalf("Expected number of objects to be %d", 12)
 	}
-    fmt.Printf("%#v\n",model["Hnad_L_Sphere.012"].Groups[0].Material)
+    for key,obj := range models {
+        fmt.Println(key,obj.Name)
+        for _, group := range obj.Groups {
+            fmt.Printf("\tmaterial name:%#v\n", group.Material.Name)
+        }
+    }
 }
