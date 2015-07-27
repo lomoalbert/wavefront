@@ -18,6 +18,7 @@ func TestRead(t *testing.T) {
         fmt.Println(key,obj.Name)
         for _, group := range obj.Groups {
             fmt.Printf("\tmaterial name:%#v\n", group.Material.Name)
+            fmt.Printf("\tVertexes:%#v\n", group.Vertexes[:10])
         }
     }
 }
