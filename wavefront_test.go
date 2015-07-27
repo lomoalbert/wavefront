@@ -2,7 +2,6 @@ package wavefront
 
 import (
     "testing"
-    "fmt"
 )
 
 func TestRead(t *testing.T) {
@@ -14,11 +13,4 @@ func TestRead(t *testing.T) {
 	if len(models) != 12 {
 		t.Fatalf("Expected number of objects to be %d", 12)
 	}
-    for key,obj := range models {
-        fmt.Println(key,obj.Name)
-        for _, group := range obj.Groups {
-            fmt.Printf("\tmaterial name:%#v\n", group.Material.Name)
-            fmt.Printf("\tVertexes:%#v\n", group.Vertexes[:10])
-        }
-    }
 }
