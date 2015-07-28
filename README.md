@@ -1,4 +1,4 @@
-wavefront
+wavefront for gomobile
 =========
 
 用于golang/mobile载入wavefront(OBJ/MTL)的模块,基于[peterhellberg/wavefront](https://github.com/peterhellberg/wavefront)开发.
