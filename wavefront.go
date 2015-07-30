@@ -123,13 +123,19 @@ func Read(filename string) (map[string]*Object, error) {
             if len(fields) != 3 {
                 return nil, fail("unsupported texture line")
             }
-            for i := 0; i < 2; i++ {
-                f, err := strconv.ParseFloat(fields[i+1], 32) //f类型为 float64
-                if err != nil {
-                    return nil, fail("cannot parse float")
-                }
-                textcoord = append(textcoord, float32(f))
+
+            f, err := strconv.ParseFloat(fields[1], 32) //f类型为 float64
+            if err != nil {
+                return nil, fail("cannot parse float")
             }
+            textcoord = append(textcoord, float32(f))
+
+            f, err = strconv.ParseFloat(fields[2], 32) //f类型为 float64
+            if err != nil {
+                return nil, fail("cannot parse float")
+            }
+            textcoord = append(textcoord, 1-float32(f))
+
             case "vn":
             if len(fields) != 4 {
                 return nil, fail("unsupported vertex normal line")
@@ -162,7 +168,7 @@ func Read(filename string) (map[string]*Object, error) {
                 ti, err := strconv.Atoi(face[1])
                 if err == nil {
                     ti = (ti - 1) * 2
-                    group.Textcoords = append(group.Textcoords, textcoord[vi], textcoord[vi+1])
+                    group.Textcoords = append(group.Textcoords, textcoord[ti], textcoord[ti+1])
                 }
                 //法线normal
                 ni, err := strconv.Atoi(face[2])
@@ -291,7 +297,7 @@ func readMaterials(filename string) (map[string]*Material, error) {
             if len(fields) != 2 {
                 return nil, fail("unsupported map_Kd")
             }
-            material.Texturefile=fields[0]
+            material.Texturefile=fields[1]
         }
     }
 
